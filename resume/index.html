@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resume — Haoshuo Bi</title>
+  <!-- 关键：子页面链接到上级的样式 -->
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <!-- 导航（子页用相对路径 ../ 返回首页） -->
+  <nav>
+    <a href="../">Home</a>
+    <a href="../projects/">Projects</a>
+    <a href="../contact/">Contact</a>
+    <a href="./">Resume</a>
+    <a href="https://github.com/HaoshuoBi" target="_blank" rel="noopener">GitHub</a>
+  </nav>
+
+  <main>
+    <!-- 顶部信息，可用 <header> 包住标题 + 简介 -->
+    <header>
+      <h1>Haoshuo Bi</h1>
+      <p>San Diego, CA · <a href="mailto:hbi@ucsd.edu">hbi@ucsd.edu</a> ·
+        <a href="https://github.com/HaoshuoBi" target="_blank" rel="noopener">GitHub</a>
+      </p>
+    </header>
+
+    <!-- Summary 概要 -->
+    <section>
+      <h2>Summary</h2>
+      <p>Transfer student in Data Science at UC San Diego. Interested in data and data analysis. Looking for hands-on projects to grow skills.</p>
+    </section>
+
+    <!-- Education 教育经历（用 <article> 表示自成一体的条目 + <time> 表日期） -->
+    <section>
+      <h2>Education</h2>
+
+      <article>
+        <h3>University of California, San Diego — B.S. in Data Science</h3>
+        <p>
+          <time datetime="2023-09">Sep 2023</time> 
+          <time datetime="2027-06">Jun 2027</time>, San Diego, CA
+        </p>
+        <ul>
+          <li>Relevant coursework: DSC40A/B, DSC80, …</li>
+        </ul>
+      </article>
+
+    <!-- Experience 经历（实习/兼职/社团都可以） -->
+    <section>
+      <h2>Experience</h2>
+
+      <article>
+        <h3>Data/Marketing Intern — Company Name</h3>
+        <p>
+          <time datetime="2024-06">Jun 2024</time> –
+          <time datetime="2024-09">Sep 2024</time>, City, Country
+        </p>
+        <ul>
+          <li>Analyzed campaign data and improved CTR by 12%.</li>
+          <li>Built a simple dashboard using Python/pandas.</li>
+        </ul>
+      </article>
+    </section>
+
+    <!-- Projects 项目（课堂/个人项目都行，链接到你的 Projects 页或 GitHub） -->
+    <section>
+      <h2>Projects</h2>
+
+      <article>
+        <h3>Personal Portfolio Website</h3>
+        <p>Static website deployed with GitHub Pages. HTML/CSS only.</p>
+        <p><a href="../projects/">View projects</a></p>
+      </article>
+    </section>
+
+    <!-- Skills 技能列表 -->
+    <section>
+      <h2>Skills</h2>
+      <ul>
+        <li>Languages: Python, HTML, C++, Java</li>
+        <li>Tools: Git, VS Code, Jupyter Notebook</li>
+        <li>Data: pandas, basic scraping/visualization</li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>
