@@ -1,11 +1,40 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — Haoshuo Bi</title>
+  <link rel="stylesheet" href="../style.css">
 </head>
 <body>
-    
+  <nav>
+    <a href="../">Home</a>
+    <a href="../projects/">Projects</a>
+    <a href="./">Contact</a>
+    <a href="https://github.com/HaoshuoBi" target="_blank" rel="noopener">GitHub</a>
+  </nav>
+
+  <h1>Contact Me</h1>
+  <p>Welcome to contact me through the form below:</p>
+
+  <!-- 联系表单 -->
+  <form action="mailto:hbi@ucsd.com" method="POST" enctype="text/plain">
+    <label>
+      Email:
+      <input type="email" name="email" value="Please enter your email." required>
+    </label>
+    <br><br>
+    <label>
+      Subject:
+      <input name="subject" >
+    </label>
+    <br><br>
+    <label>
+      Body:<br>
+      <textarea name="body" rows="5" cols="40"></textarea>
+    </label>
+    <br><br>
+    <button>Submit</button>
+  </form>
 </body>
 </html>
