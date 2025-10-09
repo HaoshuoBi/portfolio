@@ -15,13 +15,16 @@ img {
 }
 nav ul, nav li { display: contents; }
 nav{ 
-  display: flex; /*Flex 帮你自动排列 变好看*/
+  display: flex; /*Flex 帮自动排列 变好看*/
   border-bottom: 1px solid #ccc;
   margin-bottom: 1rem;
 }
 
+
+
+/* 导航 */
 nav a{
-  flex: 1;                    /* 导航平分剩余空间（足够用） */
+  flex: 1;                  
   text-align: center;
   text-decoration: none;
   color: inherit;
@@ -29,40 +32,95 @@ nav a{
 }
 nav a.current{
   border-bottom: .4em solid #ccc;
-  padding-bottom: .1em;       /* 抵消边框增加的高度 */
+  padding-bottom: .1em;       
   font-weight: 600;
 }
 nav a:hover{
   border-bottom: .4em solid var(--accent);
-  background-color: oklch(from var(--accent) 95% 5% h); /* 同色系浅底 */
+  background-color: oklch(from var(--accent) 95% 5% h); 
 }
-/* Step 3.1: Inherit page font */
+
 input, textarea, button { font: inherit; }
 
-/* Step 3.3: Grid layout */
 form {
   display: grid;
-  grid-template-columns: auto 1fr; /* 左：标签文字 右：输入框 */
-  gap: 1em;                        /* 元素间距 */
-  max-width: 35rem;                /* 控制表单整体宽度 */
+  grid-template-columns: auto 1fr; 
+  gap: 1em;                       
+  max-width: 35rem;              
 }
 
-/* 每个 <label> 自身也是 grid，继承父级网格对齐 */
 label {
   display: grid;
   grid-template-columns: subgrid;
-  grid-column: 1 / -1; /* label 跨两列 */
+  grid-column: 1 / -1; 
   margin: 0;
 }
 
-/* 输入控件全宽，计算内边距 */
 input, textarea {
   width: 100%;
   box-sizing: border-box;
 }
 
-/* 提交按钮独占整行 */
 button {
   grid-column: 1 / -1;
   width: 100%;
+}
+
+
+
+
+/* Project */
+.projects {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15em, 1fr)); /* 自适应列数 */
+  gap: 1em;               /* 网格间距 */
+  margin: 2em 0;          /* 上下外边距 */
+}
+
+
+.projects > article {
+  display: grid;
+  grid-template-rows: subgrid;  /* 行对齐 */
+  grid-row: span 3;             /* 每个项目跨三行 */
+  margin: 0;                    /* 去掉默认外边距 */
+}
+
+/* 调整内部元素 */
+.projects h2 {
+  margin: 0;                    /* 避免多余空隙 */
+}
+
+.projects img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.1;
+  text-wrap: balance;
+}
+
+/* 提高主标题对比度 */
+h1 {
+  font-size: 300%;
+}
+
+.projects p {
+  margin: 0.5em 0 0;
+}
+
+
+
+/*简历*/
+.resume{
+  display: grid;
+  grid-template-columns: 1fr 2fr; 
+  gap: 1em;
+  margin-block: 1em;
+}
+.resume section{
+  border: 1px solid #ccc;
+  padding: 1em;
+  border-radius: .5em;
 }
