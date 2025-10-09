@@ -1,7 +1,68 @@
+:root{
+  --maxw: 100ch;       /* 内容最大宽度：会随字体大小缩放 */
+  --maxw: 100ch; --accent: oklch(65% 50% 0);  /*加颜色*/
+
+}
+html{ accent-color: var(--accent); }
 body {
   font: 100%/1.5 system-ui;
+  margin-inline: max(1em, (100% - var(--maxw)) / 2);  /* 居中 + 小屏留白 */
+  padding-inline: 1em;  /* xin */
 }
 img {
   max-width: 100%;
   height: auto;
+}
+nav ul, nav li { display: contents; }
+nav{ 
+  display: flex; /*Flex 帮你自动排列 变好看*/
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 1rem;
+}
+
+nav a{
+  flex: 1;                    /* 导航平分剩余空间（足够用） */
+  text-align: center;
+  text-decoration: none;
+  color: inherit;
+  padding: .5em;
+}
+nav a.current{
+  border-bottom: .4em solid #ccc;
+  padding-bottom: .1em;       /* 抵消边框增加的高度 */
+  font-weight: 600;
+}
+nav a:hover{
+  border-bottom: .4em solid var(--accent);
+  background-color: oklch(from var(--accent) 95% 5% h); /* 同色系浅底 */
+}
+/* Step 3.1: Inherit page font */
+input, textarea, button { font: inherit; }
+
+/* Step 3.3: Grid layout */
+form {
+  display: grid;
+  grid-template-columns: auto 1fr; /* 左：标签文字 右：输入框 */
+  gap: 1em;                        /* 元素间距 */
+  max-width: 35rem;                /* 控制表单整体宽度 */
+}
+
+/* 每个 <label> 自身也是 grid，继承父级网格对齐 */
+label {
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-column: 1 / -1; /* label 跨两列 */
+  margin: 0;
+}
+
+/* 输入控件全宽，计算内边距 */
+input, textarea {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* 提交按钮独占整行 */
+button {
+  grid-column: 1 / -1;
+  width: 100%;
 }
