@@ -1,3 +1,10 @@
+/* Step 4.1 自动深浅色 */
+html {
+  color-scheme: light dark; /* 自动：随系统 */
+  background: canvas;       /* 系统背景色 */
+  color: canvastext;        /* 系统文字色 */
+}
+
 :root{
   --maxw: 100ch;       /* 内容最大宽度：会随字体大小缩放 */
   --maxw: 100ch; --accent: oklch(65% 50% 0);  /*加颜色*/
@@ -39,7 +46,12 @@ nav a:hover{
   border-bottom: .4em solid var(--accent);
   background-color: oklch(from var(--accent) 95% 5% h); 
 }
+nav {
+  --border-color: oklch(50% 10% 200 / 40%);
+  border-bottom: 1px solid var(--border-color);
+} /* 主题变色 导航跟着变 */
 
+/* contact */
 input, textarea, button { font: inherit; }
 
 form {
@@ -72,22 +84,22 @@ button {
 /* Project */
 .projects {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(15em, 1fr)); /* 自适应列数 */
-  gap: 1em;               /* 网格间距 */
-  margin: 2em 0;          /* 上下外边距 */
+  grid-template-columns: repeat(auto-fill, minmax(15em, 1fr)); 
+  gap: 1em;             
+  margin: 2em 0;          
 }
 
 
 .projects > article {
   display: grid;
-  grid-template-rows: subgrid;  /* 行对齐 */
-  grid-row: span 3;             /* 每个项目跨三行 */
-  margin: 0;                    /* 去掉默认外边距 */
+  grid-template-rows: subgrid;  
+  grid-row: span 3;             
+  margin: 0;                    
 }
 
 /* 调整内部元素 */
 .projects h2 {
-  margin: 0;                    /* 避免多余空隙 */
+  margin: 0;                   
 }
 
 .projects img {
@@ -124,3 +136,13 @@ h1 {
   padding: 1em;
   border-radius: .5em;
 }
+
+/* 背景选择器，右上角*/
+.color-scheme {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 80%;
+  font-family: inherit;
+}
+.color-scheme select { font-family: inherit; }
