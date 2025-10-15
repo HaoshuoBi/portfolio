@@ -138,11 +138,18 @@ h1 {
 }
 
 /* 背景选择器，右上角*/
-.color-scheme {
-  position: absolute;
+/* 让主题开关固定在右上角，并且不要占满一行 */
+.color-scheme{
+  position: fixed;   /* 固定在视口右上角（不随页面滚动）*/
   top: 1rem;
   right: 1rem;
   font-size: 80%;
   font-family: inherit;
+  z-index: 1000;
 }
-.color-scheme select { font-family: inherit; }
+.color-scheme select{
+  font-family: inherit;
+  width: auto;            /* 覆盖你可能的全局 width:100% */
+  display: inline-block;  /* 避免被当成块级元素占满 */
+}
+
