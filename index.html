@@ -17,7 +17,16 @@
     <h1>Haoshuo Bi</h1>
     <p>Hi, my name is Haoshuo Bi. I am a transfer student. I like to play basketball. My major is Data Science!</p>
     <img src="images/me.jpg" alt="This is my brother and me." width="600">
-    <script type="module" src="./global.js"></script>
+    <!-- ===== Step 2：最新项目（由 index.js 动态渲染前 3 个） ===== -->
+    <h2>Latest Projects</h2>
+    <div class="projects"><!-- index.js 会填充 3 个项目卡片 --></div>
+
+    <!-- ===== Step 3：GitHub 统计（由 index.js 动态填充） ===== -->
+    <div id="profile-stats"><!-- 这里会显示 Repos/Gists/Followers/Following --></div>
+
+    <!-- 必须是模块脚本；顺序：先全局工具，再首页逻辑 -->
+    <script src="global.js" type="module"></script>
+    <script src="index.js" type="module" defer></script>
 
 </body>
 </html>

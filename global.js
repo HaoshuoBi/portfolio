@@ -89,3 +89,58 @@ if ("colorScheme" in localStorage) {
 select.addEventListener("input", (e) => {
   setColorScheme(e.target.value);
 });
+
+
+// ========= Lab 4 工具：选择器小助手（如果你没有 $，就保留；若已存在就不要重复定义） =========
+export function $(selector, context = document) {
+  return context.querySelector(selector);
+}
+
+// ========= Lab 4 工具：读取 JSON =========
+export async function fetchJSON(url) {
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch: ${response.status} ${response.statusText}`);
+    }
+    return await response.json();
+  } catch (err) {
+    console.error('Error fetching or parsing JSON data:', err);
+    return null;
+  }
+}
+
+// ========= Lab 4 工具：渲染项目卡片 =========
+export function renderProjects(projectsArray, containerElement, headingLevel = 'h2') {
+  if (!containerElement) return;
+  const validHeadings = new Set(['h1','h2','h3','h4','h5','h6']);
+  const H = validHeadings.has(headingLevel) ? headingLevel : 'h2';
+
+  containerElement.innerHTML = '';
+
+  if (!Array.isArray(projectsArray) || projectsArray.length === 0) {
+    containerElement.innerHTML = '<p>No projects to display.</p>';
+    return;
+  }
+
+  for (const project of projectsArray) {
+    const article = document.createElement('article');
+    const title = project?.title ?? 'Untitled';
+    const rawImg = project?.image ?? 'https://dsc106.com/labs/lab02/images/empty.svg';
+    // 关键：把 "images/xxx" 变成基于根的路径（/ 或 /portfolio/）
+    const img = /^(https?:)?\/\//.test(rawImg) ? rawImg : (BASE_PATH + rawImg);
+    const desc = project?.description ?? '';
+
+    article.innerHTML = `
+      <${H}>${title}</${H}>
+      <img src="${img}" alt="${title}">
+      <p>${desc}</p>
+    `;
+    containerElement.appendChild(article);
+  }
+}
+
+// ========= Lab 4 工具：GitHub API（后面首页会用到） =========
+export async function fetchGitHubData(username) {
+  return fetchJSON(`https://api.github.com/users/${encodeURIComponent(username)}`);
+}

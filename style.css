@@ -153,3 +153,34 @@ h1 {
   display: inline-block;  /* 避免被当成块级元素占满 */
 }
 
+/* GitHub 统计：横向四列，两行网格（上方是标题 dt，下方是数值 dd） */
+#profile-stats {
+  margin: 1.5rem 0;
+}
+
+/* 让标题和网格里的文字都左对齐 */
+#profile-stats h3 {
+  text-align: left;   /* 原来可能是 center */
+}
+
+#profile-stats dl {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: 2rem;
+  row-gap: .5rem;
+  text-align: left;       /* 改为左对齐 */
+  justify-items: start;   /* Grid 里每个单元左对齐 */
+}
+
+#profile-stats dt,
+#profile-stats dd {
+  justify-self: start;    /* 再保险：各单元格自身也左对齐 */
+}
+
+
+/* 窄屏时，自动改成两列，避免挤在一起（可选） */
+@media (max-width: 700px) {
+  #profile-stats dl {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
