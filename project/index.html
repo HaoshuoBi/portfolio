@@ -1,59 +1,51 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Haoshuo Bi</title>
-    <link rel="stylesheet" href="../style.css">
-    <script src="../global.js" type="module"></script>
-    <script src="projects.js" type="module" defer></script>
+  <meta charset="utf-8" />
+  <title>Projects – Haoshuo Bi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="../style.css" />
+  <!-- 你的全站脚本（导航/主题） -->
+  <script src="../global.js" type="module"></script>
+
+  <style>
+    /* —— 本页需要的最小样式 —— */
+    .pie-wrap { display: flex; align-items: flex-start; gap: 1.25rem; margin-block: 1.5rem; }
+    #projects-pie-plot { max-width: 20em; margin-block: .5rem; overflow: visible; aspect-ratio: 1/1; inline-size: 100%; }
+    .legend { display: grid; grid-template-columns: repeat(auto-fill, minmax(9em, 1fr)); gap: .75rem; padding: 1rem; border: 1px solid #ddd; border-radius: .5rem; }
+    .legend li { list-style: none; display: flex; align-items: center; gap: .5rem; padding: .25rem 0; }
+    .legend .swatch { display: inline-block; inline-size: 1em; aspect-ratio: 1/1; background: var(--color); border-radius: .25em; }
+    svg path { transition: 300ms; cursor: pointer; }
+    svg:has(path:hover) path:not(:hover) { opacity: .5; }
+    .selected { --color: oklch(60% 0.45 0) !important; }
+    .selected:is(path) { fill: var(--color); }
+    .toolbar { display: flex; gap: .75rem; align-items: center; margin-block: .5rem 1rem; }
+    .searchBar { inline-size: min(28rem, 100%); padding: .5rem .75rem; border: 1px solid #ccc; border-radius: .5rem; }
+    .projects-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr)); gap: 1rem; margin-block: 1rem 2rem; }
+    .project-card { border: 1px solid #e5e5e5; border-radius: .75rem; padding: 1rem; }
+    .project-meta { color: #666; font-variant-numeric: oldstyle-nums; margin-top: .25rem; }
+  </style>
 </head>
 <body>
-  
-    <!-- <nav>
-        <a href="../">Home</a>
-        <a href="./">Project</a>
-        <a href="../contact/">Contact</a>
-        <a href="../resume/">Resume</a>
-        <a href="https://github.com/HaoshuoBi" target="_blank" rel="noopener">GitHub</a>
-  </nav> -->
-    <!--
-    <h1>Projects</h1>
-
-    <section class="projects">
-
-      
-      <article>
-        <h2>Friends Data Analysis Project</h2>
-        <img src="https://vis-society.github.io/labs/2/images/empty.svg" alt="Project thumbnail">
-        <ul>
-          <li><strong>Data Cleaning:</strong> Processed TV show data of <em>Friends</em> (ratings, audience reviews, and scores) using Python. Handled missing and abnormal values, and generated descriptive statistics such as director experience distributions and rating trends.</li>
-          <li><strong>Statistical Analysis:</strong> Applied confidence intervals and hypothesis testing to compare episode ratings across major directors. Evaluated statistical significance to reveal how directing style influenced show quality.</li>
-          <li><strong>Clustering Analysis:</strong> Conducted k-means clustering on character dialogue sentiment. Identified emotional differences across characters and produced a final report with recommendations for optimizing show production.</li>
-        </ul>
-      </article>
-
-      
-      <article>
-        <h2>Project A</h2>
-        <img src="https://vis-society.github.io/labs/2/images/empty.svg" alt="Placeholder image">
-        <p>description of a project.</p>
-      </article>
-
-      <article>
-        <h2>Project B</h2>
-        <img src="https://vis-society.github.io/labs/2/images/empty.svg" alt="Placeholder image">
-        <p>Another short description.</p>
-      </article>
-
-    </section>
--->
-  <!-- 自动导航与主题切换由 global.js 负责，不再手写 nav -->
-  <h1 class="projects-title">Projects</h1>
-  <!-- 关键：用一个空容器，JS 动态填充项目卡片 -->
-  <div class="projects"></div>
-  <!-- 模块脚本（顺序无所谓，但都要是 type="module"） -->
+  <main class="container">
+    <h1>Projects <span id="proj-count"></span></h1>
 
 
+    <div class="toolbar">
+      <input class="searchBar" type="search" aria-label="Search projects" placeholder="🔍 Search projects…" />
+    </div>
+
+    <!-- 饼图 + 图例 -->
+    <div class="pie-wrap">
+      <svg id="projects-pie-plot" viewBox="-50 -50 100 100" aria-label="Projects per year"></svg>
+      <ul class="legend" aria-label="Legend"></ul>
+    </div>
+
+    <!-- 项目列表容器（供 JS 填充） -->
+    <section class="projects-list" aria-live="polite"></section>
+  </main>
+
+  <!-- 本页 D3 脚本（放在最后，type=module） -->
+  <script src="./projects.js" type="module"></script>
 </body>
 </html>

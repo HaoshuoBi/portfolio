@@ -111,8 +111,10 @@ export async function fetchJSON(url) {
 }
 
 // ========= Lab 4 工具：渲染项目卡片 =========
+// ========= Lab 4 工具：渲染项目卡片（加入年份） =========
 export function renderProjects(projectsArray, containerElement, headingLevel = 'h2') {
   if (!containerElement) return;
+
   const validHeadings = new Set(['h1','h2','h3','h4','h5','h6']);
   const H = validHeadings.has(headingLevel) ? headingLevel : 'h2';
 
@@ -125,20 +127,35 @@ export function renderProjects(projectsArray, containerElement, headingLevel = '
 
   for (const project of projectsArray) {
     const article = document.createElement('article');
+    article.className = 'project-card'; // 方便统一样式
+
     const title = project?.title ?? 'Untitled';
     const rawImg = project?.image ?? 'https://dsc106.com/labs/lab02/images/empty.svg';
-    // 关键：把 "images/xxx" 变成基于根的路径（/ 或 /portfolio/）
     const img = /^(https?:)?\/\//.test(rawImg) ? rawImg : (BASE_PATH + rawImg);
     const desc = project?.description ?? '';
+    const yearText = project?.year != null ? String(project.year) : ''; // 可能是数字或字符串
+
+    // 描述 + 年份 放在同一个 wrap，避免网格重叠
+    const wrap = document.createElement('div');
+    const p = document.createElement('p');
+    p.textContent = desc;
+
+    const year = document.createElement('div');
+    year.className = 'project-meta';     // 在 CSS 里设置为灰色、oldstyle-nums 等
+    year.textContent = yearText;         // 没有年份就会是空字符串
+
+    wrap.append(p, year);
 
     article.innerHTML = `
       <${H}>${title}</${H}>
       <img src="${img}" alt="${title}">
-      <p>${desc}</p>
     `;
+    article.appendChild(wrap);
+
     containerElement.appendChild(article);
   }
 }
+
 
 // ========= Lab 4 工具：GitHub API（后面首页会用到） =========
 export async function fetchGitHubData(username) {

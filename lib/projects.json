@@ -11,5 +11,5 @@
   "image": "images/project.png",
   "description": "Cleaned and processed data from the TV series Friends, including viewership ratings and audience reviews, handling missing and anomalous values with Python. Applied descriptive and inferential statistics, such as confidence intervals and hypothesis testing, to compare episode ratings among major directors and evaluate statistical significance. Performed k-means clustering on character dialogues to analyze emotional expression patterns, and produced a final report offering data-driven recommendations for improving script quality and audience engagement."
     }   ,
-  { "title": "Project C", "year": "2022", "image": "images/project.png", "description": "Coming soon" }
+  { "title": "Project C", "year": "2025", "image": "images/project.png", "description": "Coming soon" }
 ]

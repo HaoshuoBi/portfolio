@@ -149,7 +149,7 @@ h1 {
 }
 .color-scheme select{
   font-family: inherit;
-  width: auto;            /* 覆盖你可能的全局 width:100% */
+  width: auto;            /* 覆盖可能的全局 width:100% */
   display: inline-block;  /* 避免被当成块级元素占满 */
 }
 
@@ -184,3 +184,4 @@ h1 {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
