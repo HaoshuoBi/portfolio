@@ -11,22 +11,21 @@ const searchInput = document.querySelector('.searchBar');           // 搜索框
 // ======== 全局状态 ========
 let ALL_PROJECTS = [];
 let query = '';
-let selectedLabel = null;   // -1 表示未选择任何扇区
+let selectedLabel = null;   // null
 let sliceMeta = [];       // [{label: '2024', value: 3}, …] 与扇区一一对应
 
 // 颜色尺
-// 颜色尺（先声明，等拿到所有年份后再设定 domain）
 let color;
 
 
-// ======== 统一过滤：先搜再按年份（修复“不能同时过滤”的问题） ========
+// ======== 统一过滤：修复“不能同时过滤”的问题 ========
 function applyFilters() {
   let filtered = ALL_PROJECTS.filter(p => {
     const hay = Object.values(p).join('\n').toLowerCase();
     return hay.includes((query || '').toLowerCase());
   });
 
-  if (selectedLabel) { // ★ 用年份值过滤
+  if (selectedLabel) { // 用年份值过滤
     filtered = filtered.filter(p => String(p.year) === String(selectedLabel));
   }
   return filtered;
@@ -64,8 +63,8 @@ function renderPieChart(projectsGiven) {
   .attr('fill', d => color(d.data.label))
   .attr('class', d => (d.data.label === selectedLabel ? 'selected' : null))
   .on('click', (_, d) => {
-    const label = d.data.label; // ★ 这个扇区代表的年份
-    selectedLabel = (selectedLabel === label) ? null : label; // ★ 切换
+    const label = d.data.label; // 这个扇区代表的年份
+    selectedLabel = (selectedLabel === label) ? null : label; 
     renderAll();
   });
 
@@ -77,8 +76,8 @@ legend.selectAll('li')
   .attr('class', d => (d.label === selectedLabel ? 'selected' : null))
   .html(d => `<span class="swatch"></span> ${d.label} <em>(${d.value})</em>`)
   .on('click', (_, d) => {
-    const label = d.label; // ★ 图例项的年份
-    selectedLabel = (selectedLabel === label) ? null : label; // ★ 切换
+    const label = d.label; //  图例项的年份
+    selectedLabel = (selectedLabel === label) ? null : label; // 切换
     renderAll();
   });
 
@@ -102,7 +101,7 @@ legend.selectAll('li')
 // ======== 页面统一渲染（列表 + 饼图） ========
 function renderAll() {
   const filtered = applyFilters();
-  // 用你 global.js 的渲染器（包含“年份”）
+  // 用global.js 的渲染器
   renderProjects(filtered, projectsContainer, 'h2');
   renderPieChart(filtered);
 }
@@ -120,7 +119,7 @@ async function init() {
   const data = await fetchJSON('../lib/projects.json');
   ALL_PROJECTS = Array.isArray(data) ? data : [];
 
-  // ☆ 用“所有出现过的年份”做 domain——保证同一年份始终同色
+  // 用“所有出现过的年份”做 domain——保证同一年份始终同色
   const allYears = [...new Set(ALL_PROJECTS.map(p => String(p.year)))].sort();
   color = d3.scaleOrdinal(d3.schemeTableau10).domain(allYears);
 

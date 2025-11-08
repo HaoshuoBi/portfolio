@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Lab 6 — Meta analysis of codebase</title>
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    /* 仅为本页补一点样式：网格化的统计、tooltip、网格线淡化 */
+    dl.stats { display: grid; grid-template-columns: max-content 1fr; gap: .25rem 1rem; }
+    dl.stats dt { opacity: .7; }
+    .tooltip {
+      position: fixed; top: 1em; left: 1em;
+      background: rgba(255,255,255,.95); border: 1px solid #ddd; border-radius: .5rem;
+      padding: .5rem .75rem; box-shadow: 0 4px 16px rgba(0,0,0,.08);
+      transition: opacity .2s; opacity: 0; pointer-events: none;
+    }
+    .tooltip[hidden]{ opacity:0; }
+    .gridlines line { stroke: #000; stroke-opacity: .08; }
+    circle { transition: 200ms; transform-origin: center; transform-box: fill-box; }
+    circle:hover { transform: scale(1.5); }
+    circle.selected { fill: #ff6b6b; }
+    .chart-wrap { max-width: 1000px; }
+  </style>
+  <script type="module" src="main.js"></script>
+</head>
+<body>
+  <main class="wrap">
+    <h1>Lab 6 — Visualizing quantitative data with D3</h1>
+
+    <h2>Summary stats</h2>
+    <div id="stats"></div>
+
+    <h2>Commits by time of day</h2>
+    <p id="selection-count">No commits selected</p>
+    <div id="chart" class="chart-wrap"></div>
+
+    <h3>Language breakdown (selected)</h3>
+    <dl id="language-breakdown" class="stats"></dl>
+
+    <!-- 提示浮层（tooltip） -->
+    <dl id="commit-tooltip" class="tooltip" hidden>
+      <dt>Commit</dt><dd><a id="commit-link" href="#" target="_blank"></a></dd>
+      <dt>Date</dt><dd id="commit-date"></dd>
+      <dt>Time</dt><dd id="commit-time"></dd>
+      <dt>Author</dt><dd id="commit-author"></dd>
+      <dt>Lines</dt><dd id="commit-lines"></dd>
+    </dl>
+  </main>
+  <script type="module" src="../global.js"></script>
+</body>
+</html>

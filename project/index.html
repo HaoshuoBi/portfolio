@@ -5,11 +5,11 @@
   <title>Projects – Haoshuo Bi</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="../style.css" />
-  <!-- 你的全站脚本（导航/主题） -->
+  <!-- （导航/主题） -->
   <script src="../global.js" type="module"></script>
 
   <style>
-    /* —— 本页需要的最小样式 —— */
+    /* —— 样式 —— */
     .pie-wrap { display: flex; align-items: flex-start; gap: 1.25rem; margin-block: 1.5rem; }
     #projects-pie-plot { max-width: 20em; margin-block: .5rem; overflow: visible; aspect-ratio: 1/1; inline-size: 100%; }
     .legend { display: grid; grid-template-columns: repeat(auto-fill, minmax(9em, 1fr)); gap: .75rem; padding: 1rem; border: 1px solid #ddd; border-radius: .5rem; }
@@ -41,11 +41,11 @@
       <ul class="legend" aria-label="Legend"></ul>
     </div>
 
-    <!-- 项目列表容器（供 JS 填充） -->
+    <!-- JS 填充 -->
     <section class="projects-list" aria-live="polite"></section>
   </main>
 
-  <!-- 本页 D3 脚本（放在最后，type=module） -->
+  <!-- 本页 D3 脚本 -->
   <script src="./projects.js" type="module"></script>
 </body>
 </html>
