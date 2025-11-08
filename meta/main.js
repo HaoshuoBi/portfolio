@@ -8,8 +8,8 @@ async function loadData() {
     line: +row.line,
     depth: +row.depth,
     length: +row.length,
-    date: new Date(row.date + 'T00:00' + row.timezone), // 本地日期
-    datetime: new Date(row.datetime),                   // 精确时间
+    date: new Date(row.date + 'T00:00' + row.timezone), 
+    datetime: new Date(row.datetime),                   
   }));
   return data;
 }
@@ -47,7 +47,7 @@ function renderCommitInfo(data, commits) {
   dl.append('dt').text('Total commits');
   dl.append('dd').text(commits.length);
 
-  // 你可以再加 3–4 个：示例
+  // 可以再加 3–4 个：示例
   const maxDepth = d3.max(data, d => d.depth);
   dl.append('dt').text('Max depth');
   dl.append('dd').text(maxDepth);

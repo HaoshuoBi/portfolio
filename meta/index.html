@@ -10,12 +10,29 @@
     dl.stats { display: grid; grid-template-columns: max-content 1fr; gap: .25rem 1rem; }
     dl.stats dt { opacity: .7; }
     .tooltip {
-      position: fixed; top: 1em; left: 1em;
-      background: rgba(255,255,255,.95); border: 1px solid #ddd; border-radius: .5rem;
-      padding: .5rem .75rem; box-shadow: 0 4px 16px rgba(0,0,0,.08);
-      transition: opacity .2s; opacity: 0; pointer-events: none;
+      position: fixed;
+      top: 1em;
+      left: 1em;
+      background: rgba(30, 30, 30, 0.9);  /* 深灰背景，适配暗色模式 */
+      color: #fff;                        /* 文字改为白色 */
+      border: 1px solid #555;             /* 稍深的边框 */
+      border-radius: .5rem;
+      padding: .75rem 1rem;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, .4);
+      transition: opacity .2s;
+      opacity: 0;
+      pointer-events: none;
     }
-    .tooltip[hidden]{ opacity:0; }
+
+    .tooltip a {
+      color: #6fa8ff;       /* 链接蓝色 */
+      text-decoration: underline;
+    }
+
+    .tooltip:not([hidden]) {
+      opacity: 1;
+    }
+
     .gridlines line { stroke: #000; stroke-opacity: .08; }
     circle { transition: 200ms; transform-origin: center; transform-box: fill-box; }
     circle:hover { transform: scale(1.5); }
@@ -46,7 +63,7 @@
     </dl>
   </main>
 
-  <!-- ✅ 脚本顺序：先 main.js，再 global.js -->
+  <!-- main.js，global.js -->
   <script type="module" src="main.js"></script>
   <script type="module" src="../global.js"></script>
 </body>
