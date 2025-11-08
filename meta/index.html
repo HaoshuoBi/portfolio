@@ -22,12 +22,10 @@
     circle.selected { fill: #ff6b6b; }
     .chart-wrap { max-width: 1000px; }
   </style>
-  <script type="module" src="main.js"></script>
 </head>
 <body>
+
   <main class="wrap">
-
-
     <h2>Summary stats</h2>
     <div id="stats"></div>
 
@@ -47,6 +45,9 @@
       <dt>Lines</dt><dd id="commit-lines"></dd>
     </dl>
   </main>
+
+  <!-- ✅ 脚本顺序：先 main.js，再 global.js -->
+  <script type="module" src="main.js"></script>
   <script type="module" src="../global.js"></script>
 </body>
 </html>

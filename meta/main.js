@@ -75,7 +75,9 @@ function renderCommitInfo(data, commits) {
 function updateTooltipVisibility(isVisible) {
   const tip = document.getElementById('commit-tooltip');
   tip.hidden = !isVisible;
+  tip.style.opacity = isVisible ? '1' : '0';
 }
+
 function updateTooltipPosition(event) {
   const tip = document.getElementById('commit-tooltip');
   tip.style.left = `${event.clientX + 12}px`;
