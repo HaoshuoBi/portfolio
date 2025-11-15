@@ -1,15 +1,21 @@
 [
   {
-  "title": "Smart Healthcare System for Shijiazhuang Community",
-  "year": "2019",
-  "image": "images/project.png",
-  "description": "Led a team to conduct comprehensive market research through surveys and interviews to assess community healthcare needs and chronic disease prevalence. Utilized Python for data cleaning and analysis, providing key insights to support system design and business model optimization. Visualized regional health data using Matplotlib to reveal age distributions and disease trends, and proposed an IoT- and cloud-based architecture to enhance data collection, transmission, and management for remote health monitoring."
-    },
-    {
-  "title": "Friends TV Series Data Analysis",
-  "year": "2024",
-  "image": "images/project.png",
-  "description": "Cleaned and processed data from the TV series Friends, including viewership ratings and audience reviews, handling missing and anomalous values with Python. Applied descriptive and inferential statistics, such as confidence intervals and hypothesis testing, to compare episode ratings among major directors and evaluate statistical significance. Performed k-means clustering on character dialogues to analyze emotional expression patterns, and produced a final report offering data-driven recommendations for improving script quality and audience engagement."
-    }   ,
-  { "title": "Project C", "year": "2025", "image": "images/project.png", "description": "Coming soon" }
+    "title": "Smart Healthcare System for Shijiazhuang Community",
+    "year": "2019",
+    "image": "images/project.png",
+    "description": "Led a team to conduct comprehensive market research..."
+  },
+  {
+    "title": "Friends TV Series Data Analysis",
+    "year": "2024",
+    "image": "images/project.png",
+    "description": "Cleaned and processed data from the TV series Friends..."
+  },
+  {
+    "title": "Bikewatching: Boston Bike Traffic Visualization",
+    "year": "2025",
+    "image": "images/project.png",
+    "url": "https://YOUR_GITHUB_USERNAME.github.io/bikewatching/",
+    "description": "An interactive visualization built with Mapbox GL JS and D3.js, displaying live Bluebikes traffic patterns in Boston. Users can explore arrival and departure activity, flow direction, and temporal patterns through an adjustable time filter slider and dynamic circle sizing and coloring."
+  }
 ]
