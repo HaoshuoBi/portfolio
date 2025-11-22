@@ -6,16 +6,42 @@
   <title>Lab 6 — Meta analysis of codebase</title>
   <link rel="stylesheet" href="../style.css" />
   <style>
-    /* 网格化的统计、tooltip、网格线淡化 */
-    dl.stats { display: grid; grid-template-columns: max-content 1fr; gap: .25rem 1rem; }
-    dl.stats dt { opacity: .7; }
+    /* 横向 Summary Stats（老师版本） */
+    #summary-stats {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin: 1rem 0 2rem 0;
+      gap: 2rem;
+      font-family: sans-serif;
+    }
+
+    #summary-stats .stat-block {
+      text-align: center;
+      flex: 1;
+    }
+
+    #summary-stats .stat-title {
+      font-size: .75rem;
+      letter-spacing: 1px;
+      opacity: .6;
+      margin-bottom: .25rem;
+      text-transform: uppercase;
+    }
+
+    #summary-stats .stat-value {
+      font-size: 1.75rem;
+      font-weight: 600;
+    }
+
+    /* Tooltip 样式 */
     .tooltip {
       position: fixed;
       top: 1em;
       left: 1em;
-      background: rgba(30, 30, 30, 0.9);  /* 深灰背景 */
-      color: #fff;                        /* 文字白色 */
-      border: 1px solid #555;             /* 深的边框 */
+      background: rgba(30, 30, 30, 0.9);
+      color: #fff;
+      border: 1px solid #555;
       border-radius: .5rem;
       padding: .75rem 1rem;
       box-shadow: 0 4px 16px rgba(0, 0, 0, .4);
@@ -25,7 +51,7 @@
     }
 
     .tooltip a {
-      color: #6fa8ff;       /* 链接蓝色 */
+      color: #6fa8ff;
       text-decoration: underline;
     }
 
@@ -33,25 +59,180 @@
       opacity: 1;
     }
 
+    /* 时间滑块布局：左边文字，中间长滑块，右边时间 */
+    #time-filter {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    #time-filter .filter-label {
+      white-space: nowrap;
+      font-weight: 500;
+    }
+
+    #time-filter input[type="range"] {
+      flex: 1;          /* 滑块变长 */
+    }
+
+    #time-filter time {
+      margin-left: .5rem;
+      white-space: nowrap;
+      opacity: .8;
+      font-size: .9rem;
+    }
+
+    /* Step 3: scrollytelling 布局 */
+    #scrolly-1 {
+      position: relative;
+      display: flex;
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    #scrolly-1 > * {
+      flex: 1;
+    }
+
+    #scatter-story {
+      position: relative;
+    }
+
+    #scatter-plot {
+      position: sticky;
+      top: 0;
+      left: 0;
+      bottom: auto;
+      height: 50vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #scatter-plot h2 {
+      margin-top: 0;
+    }
+
+    /* 左边滚动文字（commit story）更紧凑 */
+    .step {
+      margin: 1.5rem 0 3rem 0;
+      padding-right: 1rem;
+      line-height: 1.3;
+    }
+
+    .step p {
+      margin: 0.25rem 0;
+    }
+
+    /* Step 2: 文件 unit visualization 布局 */
+    #files {
+      display: grid;
+      grid-template-columns: 1fr 4fr;
+      gap: .5rem 1rem;
+      margin: 1rem 0 2rem 0;
+    }
+
+    #files > div {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: subgrid;
+      align-items: start;
+    }
+
+    #files dt {
+      grid-column: 1;
+      margin: 0;
+    }
+
+    #files dd {
+      grid-column: 2;
+      margin: 0;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      align-content: flex-start;
+      gap: 0.15em;
+      padding-top: 0.6em;
+    }
+
+    #files dt code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+        "Liberation Mono", "Courier New", monospace;
+    }
+
+    #files dt small {
+      display: block;
+      font-size: .75rem;
+      opacity: .7;
+      margin-top: .15rem;
+    }
+
+    /* 每一行代码对应的小圆点 */
+    .loc {
+      display: flex;
+      width: 0.5em;
+      aspect-ratio: 1;
+      background: var(--color, steelblue);
+      border-radius: 50%;
+    }
+
+    /* 网格线淡化 */
     .gridlines line { stroke: #000; stroke-opacity: .08; }
-    circle { transition: 200ms; transform-origin: center; transform-box: fill-box; }
+
+    /* 圆点动画 + hover（Lab 8 Step 1.3 / 1.4） */
+    circle {
+      transition: r 200ms ease, cx 200ms ease, cy 200ms ease;
+      transform-origin: center;
+      transform-box: fill-box;
+      @starting-style {
+        r: 0; /* 新出现的点从 0 长到目标半径 */
+      }
+    }
+
     circle:hover { transform: scale(1.5); }
     circle.selected { fill: #ff6b6b; }
-    .chart-wrap { max-width: 1000px; }
+
+    .chart-wrap { max-width: 1000px; flex: 1; }
   </style>
 </head>
 <body>
 
   <main class="wrap">
-    <h2>Summary stats</h2>
-    <div id="stats"></div>
+    <!-- Step 1: 时间滑块 -->
+    <div id="time-filter">
+      <span class="filter-label">Show commits until:</span>
+      <input
+        id="commit-progress"
+        type="range"
+        min="0"
+        max="100"
+        value="100"
+      />
+      <time id="commit-filter-time"></time>
+    </div>
 
-    <h2>Commits by time of day</h2>
-    <p id="selection-count">No commits selected</p>
-    <div id="chart" class="chart-wrap"></div>
-    
-    <h3>Language breakdown</h3>
-    <dl id="language-breakdown" class="stats"></dl>
+    <!-- Files over time 放到滑块和 summary 中间（和老师一样） -->
+    <h3>Files over time</h3>
+    <dl id="files"></dl>
+
+    <!-- Summary stats（老师风格） -->
+    <div id="summary-stats"></div>
+
+    <!-- Step 3: Scrollytelling（左文字右散点图） -->
+    <div id="scrolly-1">
+      <div id="scatter-story">
+        <!-- JS 动态生成 .step -->
+      </div>
+      <div id="scatter-plot">
+        <h2>Commits by time of day</h2>
+        <p id="selection-count">No commits selected</p>
+        <div id="chart" class="chart-wrap"></div>
+
+        <!-- Language breakdown 挪到右侧图下面 -->
+        <h3>Language breakdown</h3>
+        <dl id="language-breakdown" class="stats"></dl>
+      </div>
+    </div>
 
     <!-- 提示浮层（tooltip） -->
     <dl id="commit-tooltip" class="tooltip" hidden>
